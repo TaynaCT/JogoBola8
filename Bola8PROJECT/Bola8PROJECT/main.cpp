@@ -6,7 +6,7 @@
 using namespace std;
 
 GLMmodel* pmodel = NULL;
-
+int wId;
 
 void loadmodel(void)
 {
@@ -33,9 +33,9 @@ void renderScene(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glTranslatef(0.5f, 0, 0.5f);
-	 //glutWireSphere(1, 10, 10);
-	//glEnable(GL_LIGHTING);
-//	glEnable(GL_LIGHT0);
+	glutWireSphere(1, 10, 10);
+	/*glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);*/
 	glmDraw(pmodel, GLM_SMOOTH | GLM_MATERIAL);
 	//glDisable(GL_LIGHT0);
 	//glDisable(GL_LIGHTING);
@@ -69,23 +69,24 @@ int main(int argc, char **argv) {
 	glutInitWindowPosition(10, 10);
 	glutInitWindowSize(800, 600);
 	//Criação da janela principal
-	int wId = glutCreateWindow("******* BOLA 8 ******");
+	wId = glutCreateWindow("******* BOLA 8 ******");
 	cam.cameraSetPosition(0.0, 1.0, 5.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
 
 	cam.cameraUpdate(0,0,0);
 
 	// Registar funções para processar eventos (callbacks)
 	glutDisplayFunc(renderScene);
-
-	//glutIdleFunc(renderScene);
-	glutReshapeFunc(changeSize);
+	glutIdleFunc(renderScene);
+	//glutReshapeFunc(changeSize);
 	
+	/*glutSetWindowData(WinMain)
+*/
 	//carrega o modelo
 	loadmodel();
 
 	// Entrar no ciclo de processamento do GLUT
 	glutMainLoop();
-	
 
 	return 0;
 }
+
