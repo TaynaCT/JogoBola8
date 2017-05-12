@@ -1,6 +1,7 @@
 #include <gl/freeglut.h>
 #include <iostream>
 #include "Camera.h"
+#include "glm.h"
 
 using namespace std;
 
