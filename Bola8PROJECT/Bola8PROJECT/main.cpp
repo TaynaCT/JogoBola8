@@ -24,7 +24,9 @@ int main(int argc, char **argv) {
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_SINGLE | GLUT_RGBA);
 	glutInitWindowPosition(10, 10);
 	glutInitWindowSize(800, 600);
-	glutCreateWindow("Programa-01");
+	//Criação da janela principal
+	int wId = glutCreateWindow("******* BOLA 8 ******");
+	cam.cameraUpdate(0,0,0);
 	// Registar funções para processar eventos (callbacks)
 	glutDisplayFunc(renderScene);
 	// Entrar no ciclo de processamento do GLUT
