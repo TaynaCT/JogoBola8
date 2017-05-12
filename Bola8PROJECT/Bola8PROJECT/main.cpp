@@ -26,15 +26,19 @@ void loadmodel(void)
 }
 
 
-
+//Criação dos objetos !!!!! 
 void renderScene(void) {
 
 	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glTranslatef(0.5f, 0, 0.5f);
-	 glutWireSphere(1, 10, 10);
-	
+	 //glutWireSphere(1, 10, 10);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glmDraw(pmodel, GLM_SMOOTH | GLM_MATERIAL);
+	glDisable(GL_LIGHT0);
+	glDisable(GL_LIGHTING);
 	glFlush();
 	
 }
