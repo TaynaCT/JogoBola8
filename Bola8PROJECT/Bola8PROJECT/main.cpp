@@ -4,6 +4,27 @@
 
 using namespace std;
 
+GLMmodel* pmodel = NULL;
+
+
+void loadmodel(void)
+{
+	if(pmodel == NULL)
+	{
+        pmodel = glmReadOBJ("modelos/PoolTableWithoutUVW.obj");
+		if(pmodel == NULL) {exit(0);}
+		else
+		{
+			glmUnitize(pmodel);
+			glmLinearTexture(pmodel);
+			glmScale(pmodel, 1.0);
+			glmFacetNormals(pmodel);
+			glmVertexNormals(pmodel, 90.0);
+		}
+    }
+}
+
+
 
 void renderScene(void) {
 
