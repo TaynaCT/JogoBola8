@@ -27,3 +27,8 @@
 *.exe
 *.out
 *.app
+*.opendb
+*.db
+*.lastbuildstate
+*.tlog
+*.idb
