@@ -1,64 +1,83 @@
 #include <iostream>
-#include <vector>
 #include <gl/freeglut.h>
 #include "Game.h"
+//#include "SnowMan.h"
+
+#define NOME_JANELA "BOLA 8"
 
 namespace std {
 
-	bool Game::gameRunning = false;
-	bool Game::gameInit = false;
-	int Game::gameFPS = 100;
+	void Game::changeSize(int w, int h) {
+		// Previne a divisão por zero
+		if (h == 0) h = 1;
+		double ratio = 1.0 * double(w) / double(h);
 
-	Game::Game() {
-		static int argc = 1;
-		static char *argv[] = { "none" };
+		// O viewport ocupará toda a janela
+		glViewport(0, 0, w, h);
 
-		if (gameInit == false) {
-			glutInit(&argc, argv);
-			gameInit = true;
-		}
+		// Efetua o reset do sistema de coordenadas
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
 
-		gameRunning = false;
+		// Aplica a perspectiva
+		gluPerspective(45.0, ratio, 1.0, 100.0);
 
-		std::cout << "[Game] Create Game" << std::endl;
+		// Altera o sistema de coordenadas, para GL_MODELVIEW
+		glMatrixMode(GL_MODELVIEW);
 	}
 
-	Game::~Game() {
-		std::cout << "[Game] Destroy Game" << std::endl;
+	void Game::renderScene(void)
+	{
+		glClearColor(0.0, 0.0, 0.0, 0.0);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+
+		glLoadIdentity();
+		gluLookAt(5.0, 5.0, 5.0,
+			0.0, 0.0, 0.0,
+			0.0, 1.0, 0.0);
+
+		drawScene();
+
+		glutSwapBuffers();
 	}
 
-	void Game::gameRun(void) {
-		if (gameRunning == true) return;
-		else gameRunning = true;
+	void Game::run(void) {
+		if (running == true) return;
+		else running = true;
+
+		glutDisplayFunc(this->renderScene);
+		glutIdleFunc(this->renderScene);
+		glutReshapeFunc(this->changeSize);
+		glutKeyboardFunc(this->processNormalKeys);
+		glutSpecialFunc(this->processSpecialKeys);
 
 		glutMainLoop();
 	}
 
-	int Game::gameAddMainWindow(int x, int y, int width, int height, std::string windowName) {
-		MainWindow window(x, y, width, height, windowName);
-		gameMainWindows.push_back(window);
+	void Game::init() {
+		int argc = 1;
+		char *argv[1] = { (char*) "none" };
 
-		return window.windowId;
+		if (running == true) return;
+
+		glutInit(&argc, argv);
+		glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+		glutInitWindowPosition(x, y);
+		glutInitWindowSize(screenWidth, screenHeight);
+		window = glutCreateWindow(NOME_JANELA);
+
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_CULL_FACE);
 	}
 
-	void Game::gameCameraSetPosition(int wId, 
-		double eyex, double eyey, double eyez,
-		double dirx, double diry, double dirz,
-		double upx, double upy, double upz) {
-		for (std::vector<MainWindow>::iterator it = gameMainWindows.begin(); it != gameMainWindows.end(); it++) {
-			if (it->windowId == wId) {
-				it->camera.cameraSetPosition(eyex, eyey, eyez, dirx, diry, dirz, upx, upy, upz);
-			}
-		}
-	}
+	void Game::init(int x, int y, int width, int height) {
+		Game::x = x;
+		Game::y = y;
+		screenWidth = width;
+		screenHeight = height;
 
-	void Game::gameSetTimerFPS(int fps) {
-		gameFPS = fps;
-	}
-
-	void Game::gameTimerRun(int value) { // Como valor identificador do timer, foi passado o ID da janela
-		//glutPostRedisplay(); // Lança evento de Display na janela que está ativa
-		glutPostWindowRedisplay(value); // ID da janela a que se pretende lançar novo evento de Display
-		glutTimerFunc((1000 / gameFPS) /*ms*/, gameTimerRun, value); // Estamos a passar como valor identificador do timer, o ID da janela
+		init();
 	}
 }

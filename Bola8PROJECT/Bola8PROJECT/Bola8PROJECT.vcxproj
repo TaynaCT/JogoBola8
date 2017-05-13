@@ -144,12 +144,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\Game.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="glm.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\Game.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="glm.h" />
   </ItemGroup>
