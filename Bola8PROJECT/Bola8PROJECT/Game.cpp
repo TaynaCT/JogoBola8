@@ -1,12 +1,12 @@
 #include <iostream>
 #include <gl/freeglut.h>
 #include "Game.h"
-//#include "SnowMan.h"
+#include "Camera.h"
 
 #define NOME_JANELA "BOLA 8"
 
 namespace std {
-
+	Camera cam;
 	void Game::changeSize(int w, int h) {
 		// Previne a divisão por zero
 		if (h == 0) h = 1;
@@ -30,13 +30,14 @@ namespace std {
 	{
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-
+		
 		glLoadIdentity();
-		gluLookAt(5.0, 5.0, 5.0,
+		/*gluLookAt(5.0, 5.0, 5.0,
 			0.0, 0.0, 0.0,
-			0.0, 1.0, 0.0);
+			0.0, 1.0, 0.0);*/
+
+		cam.cameraSetPosition(0.0, 1.0, 5.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
+		cam.cameraUpdate(0,0,0);
 
 		drawScene();
 

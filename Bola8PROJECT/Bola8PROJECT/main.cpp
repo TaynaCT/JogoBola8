@@ -6,9 +6,9 @@
 
 using namespace std;
 
-
 GLMmodel* pmodel = NULL;
 int wId;
+Game game;
 
 void loadmodel(void)
 {
@@ -46,6 +46,8 @@ void loadmodel(void)
 //	
 //}
 
+
+//Coisas que devem aparecer na tela
 void Game::drawScene() {
 	//glmDraw(pmodel, GLM_SMOOTH | GLM_MATERIAL);
 	glTranslatef(0.5f, 0, 0.5f);
@@ -75,7 +77,7 @@ void changeSize(int w, int h)
 void Game::processSpecialKeys(int key, int x, int y) {
 	switch (key) {
 	case GLUT_KEY_F1:
-		//red = 1.0; green = 0.0; blue = 0.0;
+		game.changeSize(250, 100);
 		break;
 	case GLUT_KEY_F2:
 		//red = 0.0; green = 1.0; blue = 0.0;
@@ -114,7 +116,7 @@ int main(int argc, char **argv) {
 //	glutMainLoop();
 //
 
-	Game game;
+
 
 	//createGameCharacters();
 
