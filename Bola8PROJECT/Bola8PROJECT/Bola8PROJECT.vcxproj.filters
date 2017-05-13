@@ -18,13 +18,13 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="glm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\MainWindow.cpp">
+    <ClCompile Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClInclude Include="glm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\MainWindow.h">
+    <ClInclude Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

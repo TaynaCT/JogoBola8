@@ -2,8 +2,10 @@
 #include <iostream>
 #include "Camera.h"
 #include "glm.h"
+//#include "Game.h"
 
 using namespace std;
+
 
 GLMmodel* pmodel = NULL;
 int wId;
@@ -25,7 +27,7 @@ void loadmodel(void)
     }
 }
 
-
+//void Game::dr
 //Criação dos objetos !!!!! 
 void renderScene(void) {
 
@@ -60,9 +62,8 @@ void changeSize(int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv) {	
 	Camera cam;
-
 	// Inicializar o GLUT e a janela
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_SINGLE | GLUT_RGBA);

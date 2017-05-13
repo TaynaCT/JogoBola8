@@ -143,13 +143,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\Camera.cpp" />
-    <ClCompile Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\MainWindow.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\Game.cpp" />
     <ClCompile Include="glm.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\MainWindow.h" />
+    <ClInclude Include="..\..\..\..\Desktop\Bilhar\Programa-Base-SnowMan\Game.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="glm.h" />
   </ItemGroup>
