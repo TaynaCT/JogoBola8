@@ -13,6 +13,7 @@ namespace std {
 		void cameraPan(double pan);
 		void cameraMove(double move);
 		void cameraUpdate(double targetX, double targetY, double targetZ);
+		double camPos[3];
 
 
 	private:

@@ -1,6 +1,8 @@
 #pragma once
 #include "Game.h"
 #include "glm.h"
+#include "Vector.h"
+
 using namespace std;
 
 GLMmodel* pmodel = NULL;
@@ -12,6 +14,7 @@ double motionScale = 0.00001;
 //load model é tambem chamada no main!!!
 void loadmodel(void)
 {
+	
 	if(pmodel == NULL)
 	{
         pmodel = glmReadOBJ("modelos/PoolTableWithoutUVW.obj");
@@ -27,6 +30,7 @@ void loadmodel(void)
     }
 }
 
+//desenho das bolas
 void drawBalls() {
 	//bolas
 
@@ -36,13 +40,13 @@ void drawBalls() {
 		z += d;
 		for (int i = 1; i <= 5; i += 1)
 		{
-			x += d;
+			
 			if (j == 1 && i == 3) {
 				glPushMatrix();
 				glTranslatef(x, y, z);
 				glutWireSphere(1, 10, 10);
 				glPopMatrix();
-				
+				x -= d;
 			}
 
 			if (j == 2 && (i == 2 || i == 3)) {
@@ -50,15 +54,15 @@ void drawBalls() {
 				glTranslatef(x + 0.5F, y, z + 0.5);
 				glutWireSphere(1, 10, 10);
 				glPopMatrix();
-				
+				x += d;
 			}
 
-			if (j == 3 && (i != 1 || i != 5)) {
+			if ((j == 3 && i != 1) || (j == 3 &&i != 5)) {
 				glPushMatrix();
 				glTranslatef(x, y, z);
 				glutWireSphere(1, 10, 10);
 				glPopMatrix();
-				
+				x -= d;
 			}
 
 			if (j == 4 && i != 5) {
@@ -66,7 +70,7 @@ void drawBalls() {
 				glTranslatef(x + 0.5F, y, z + 0.5F);
 				glutWireSphere(1, 10, 10);
 				glPopMatrix();
-				
+				x += d;
 			}
 
 			if (j == 5) {
@@ -74,22 +78,32 @@ void drawBalls() {
 				glTranslatef(x, y, z);
 				glutWireSphere(1, 10, 10);
 				glPopMatrix();
-				
+				x -= d;
 			}
 		}
 	}
 	//end
 }
 
-//void draw
+//Taco
+//recebe o array com a posição do taco
+void  drawTaco(double *camPos) {
+
+	glPushMatrix();  //Set current matrix on the stack
+	glColor3f(1.0f, 0.5f, 0.5f); // transformation 1
+	glTranslatef(camPos[0], camPos[1], camPos[2]);
+	glRotatef(90, 0.0f, 1.0f, 0.0f);
+	glutSolidCylinder(0.015f, 1, 6, 6);
+	glPopMatrix();// Pop the old matrix without the transformations.
+}
 
 //Coisas q vão ser apresentadas na tela
 void drawSceneGame1(void) {
 
 	glPushMatrix();
 	glTranslatef(0.5f, 1, 0.5f);
-	//glEnable(GL_LIGHTING);
-	//glEnable(GL_LIGHT0);
+	/*glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);*/
 	glmDraw(pmodel, GLM_SMOOTH | GLM_MATERIAL);
 	glPopMatrix();
 
@@ -100,12 +114,9 @@ void drawSceneGame1(void) {
 	glutWireSphere(1, 10, 10);
 	glPopMatrix();*/// Pop the old matrix without the transformations.
 
-	glPushMatrix();  //Set current matrix on the stack
-	glColor3f(1.0f, 0.5f, 0.5f); // transformation 1
-	glTranslatef(0.5f, 2, 0.5f);
-	glRotatef(90, 0.0f, 1.0f, 0.0f);
-	glutSolidCylinder(0.015f, 1, 6, 6);
-	glPopMatrix();
+	//Vector coisa = Vector(10, 2, 1);
+
+	
 
 	drawBalls();
 	
@@ -132,9 +143,14 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		//ativação de luzes
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+
 		currentWindow->camera.cameraUpdate(0,0,0);
 
 		drawSceneGame1();
+		drawTaco(currentWindow->camera.camPos);
 
 		glutSwapBuffers();
 	});

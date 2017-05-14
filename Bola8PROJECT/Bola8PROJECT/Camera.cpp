@@ -94,6 +94,18 @@ namespace  std {
 			targetX, targetY, targetZ,	// Target
 			upx, upy, upz);							// up
 			
+		//é passado os valores de x, y, z da posição atual da camera para cada casa do array camPos
+		camPos[0] = dirx;
+		camPos[1] = diry;
+		camPos[2] = dirz;
+
+		std::cout << "camPos[0] = " << camPos[0] << '\n';
+		std::cout << "camPos[1] = " << camPos[1] << '\n';
+		std::cout << "camPos[2] = " << camPos[2] << '\n';
+		//std::cout << "camPos[0] = " << camPos[0] = << '\n';
+
 	}
+
+	
 		
 }
