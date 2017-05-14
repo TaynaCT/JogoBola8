@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "glm.h"
 #include "Vector.h"
+#include "tinymath.h"
 
 using namespace std;
 
@@ -10,6 +11,35 @@ GLMmodel* pmodel = NULL;
 static float angle = 0.0;
 static float red = 1.0, blue = 1.0, green = 1.0;
 double motionScale = 0.00001;
+
+// struct Bola
+//{
+//public:
+//	v3 pos;
+//	v3 speed;
+//	float raio;
+//
+//};
+//
+//void collisions(Bola* b1, Bola* b2)
+//{
+//	float raios = b1->raio + b2->raio;
+//	if ((b1->pos - b2->pos) < raios + raios)
+//	{
+//		// passar a usar este tipo de colisoes
+//		/*v3 n = normalize(ballPos[b1] - ballPos[b2]);
+//		v3 niVel = dot(ballVel[b1], n)*n;
+//		v3 njVel = dot(ballVel[b2], -n)*(-n);
+//		v3 tiVel = ballVel[b1] - niVel;
+//		v3 tjVel = ballVel[b2] - njVel;
+//		ballVel[b1] = njVel + tiVel;
+//		ballVel[b2] = niVel + tjVel;*/
+//		
+//		/*Vector embate = (b1->pos - b2->pos).normalize();
+//		b1->speed -= 2 * embate * b1->speed.dot(embate);
+//		b2->speed -= 2 * embate * b1->speed.dot(embate);*/
+//	}
+//}
 
 //load model é tambem chamada no main!!!
 void loadmodel(void)
