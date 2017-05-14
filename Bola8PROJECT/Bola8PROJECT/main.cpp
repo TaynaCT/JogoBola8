@@ -6,7 +6,7 @@ int main(int argc, char **argv) {
 
 	//definição da nova janela 
 	Game1 game;
-	int wId = game.gameAddMainWindow(0, 0, 800, 600, "Main Window 1");
+	int wId = game.gameAddMainWindow(0, 0, 800, 600, "Bola 8 || F2 - full screen || esc - escape window");
 	//posicionamento inicial da camera
 	game.gameCameraSetPosition(wId, 0.0, 1.0, 5.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
 	//iniciação dos callbacks 

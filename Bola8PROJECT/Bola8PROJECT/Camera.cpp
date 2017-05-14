@@ -102,7 +102,9 @@ namespace  std {
 		std::cout << "camPos[0] = " << camPos[0] << '\n';
 		std::cout << "camPos[1] = " << camPos[1] << '\n';
 		std::cout << "camPos[2] = " << camPos[2] << '\n';
-		//std::cout << "camPos[0] = " << camPos[0] = << '\n';
+		std::cout << "dirx----- " << dirx << '\n';
+		std::cout << "diry----- " << diry << '\n';
+		std::cout << "dirz----- " << dirz << '\n';
 
 	}
 
