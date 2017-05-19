@@ -32,7 +32,7 @@ namespace  std {
 		
 		anglePan = asin((1.0 * dirx + 0.0 * diry + 0.0 * dirz) / (sqrt(1.0 * 1.0 + 0.0 * 0.0 + 0.0 * 0.0)*sqrt(dirx*dirx + diry*diry + dirz*dirz)));
 		anglePan = anglePan * 180.0 / 3.14159265359;
-		std::cout << "anglePan=" << anglePan << '\n';
+		//std::cout << "anglePan=" << anglePan << '\n';
 
 		// Dados os pontos do plano xz: Po(0,0,0), Px(1,0,0), Py(0,0,1)
 		// Obtemos um plano definido pelos dois vetores: PoPx(1,0,0), PoPy(0,0,1)
@@ -43,7 +43,7 @@ namespace  std {
 		// alpha = asen(abs(0*dx+1*dy+0*dz)/(abs(sqrt(0*0+1*1+0*0))*abs(dx*dx+dY*dy+dz*dz)))
 		angleTilt = asin(fabs(0.0 * dirx + 1.0 * diry + 0.0 * dirz) / (fabs(sqrt(0.0 * 0.0 + 1.0 * 1.0 + 0.0 * 0.0))*fabs(dirx*dirx + diry*diry + dirz*dirz)));
 		angleTilt = angleTilt * 180.0 / 3.14159265359;
-		std::cout << "angleTilt=" << angleTilt << '\n';
+		//std::cout << "angleTilt=" << angleTilt << '\n';
 	}
 
 	void Camera::cameraTilt(double tilt) {
@@ -93,10 +93,21 @@ namespace  std {
 		gluLookAt(dirx, diry ,dirz,					// eye
 			targetX, targetY, targetZ,	// Target
 			upx, upy, upz);							// up
-
-
-		std::cout << "deltaAngleTilt" << deltaAngleTilt << std::endl;
 			
+		//é passado os valores de x, y, z da posição atual da camera para cada casa do array camPos
+		camPos[0] = dirx;
+		camPos[1] = diry;
+		camPos[2] = dirz;
+
+		std::cout << "camPos[0] = " << camPos[0] << '\n';
+		std::cout << "camPos[1] = " << camPos[1] << '\n';
+		std::cout << "camPos[2] = " << camPos[2] << '\n';
+		std::cout << "dirx----- " << dirx << '\n';
+		std::cout << "diry----- " << diry << '\n';
+		std::cout << "dirz----- " << dirz << '\n';
+
 	}
+
+	
 		
 }
