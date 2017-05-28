@@ -1,6 +1,7 @@
 #include "Game1.h"
 
 int main(int argc, char **argv) {	
+	drawGameBalls();
 
 	loadmodel();
 

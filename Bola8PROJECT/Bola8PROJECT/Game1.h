@@ -3,43 +3,18 @@
 #include "glm.h"
 #include "Vector.h"
 #include "tinymath.h"
+#include"Ball.h"
 
 using namespace std;
 
 GLMmodel* pmodel = NULL;
+vector<Ball> gameBalls;
 
 static float angle = 0.0;
 static float red = 1.0, blue = 1.0, green = 1.0;
 double motionScale = 0.00001;
 
-// struct Bola
-//{
-//public:
-//	v3 pos;
-//	v3 speed;
-//	float raio;
-//
-//};
-//
-//void collisions(Bola* b1, Bola* b2)
-//{
-//	float raios = b1->raio + b2->raio;
-//	if ((b1->pos - b2->pos) < raios + raios)
-//	{
-//		// passar a usar este tipo de colisoes
-//		/*v3 n = normalize(ballPos[b1] - ballPos[b2]);
-//		v3 niVel = dot(ballVel[b1], n)*n;
-//		v3 njVel = dot(ballVel[b2], -n)*(-n);
-//		v3 tiVel = ballVel[b1] - niVel;
-//		v3 tjVel = ballVel[b2] - njVel;
-//		ballVel[b1] = njVel + tiVel;
-//		ballVel[b2] = niVel + tjVel;*/
-//		
-//		/*Vector embate = (b1->pos - b2->pos).normalize();
-//		b1->speed -= 2 * embate * b1->speed.dot(embate);
-//		b2->speed -= 2 * embate * b1->speed.dot(embate);*/
-//	}
-//}
+
 
 //load model é tambem chamada no main!!!
 void loadmodel(void)
@@ -60,66 +35,6 @@ void loadmodel(void)
     }
 }
 
-//desenho das bolas
-void drawBalls() {
-	//bolas
-
-	float ballSize = 0.05;
-	float x = -0.16;
-	float y = 1.25;
-	float z = -0.16;
-	float d = 0.15;
-
-	for (int j = 1; j <= 5; j += 1)
-	{
-		z += d;
-		for (int i = 1; i <= 5; i += 1)
-		{
-			
-			if (j == 1 && i == 3) {
-				glPushMatrix();
-				glTranslatef(x, y, z);
-				glutSolidSphere(ballSize, 10, 10);
-				glPopMatrix();
-				x -= d;
-			}
-
-			if (j == 2 && (i == 2 || i == 3)) {
-				glPushMatrix();
-				glTranslatef(x + 0.5F, y, z + 0.5);
-				glutSolidSphere(ballSize, 10, 10);
-				glPopMatrix();
-				x += d;
-			}
-
-			if ((j == 3 && i != 1) || (j == 3 &&i != 5)) {
-				glPushMatrix();
-				glTranslatef(x, y, z);
-				glutSolidSphere(ballSize, 10, 10);
-				glPopMatrix();
-				x -= d;
-			}
-
-			if (j == 4 && i != 5) {
-				glPushMatrix();
-				glTranslatef(x + 0.5F, y, z + 0.5F);
-				glutSolidSphere(ballSize, 10, 10);
-				glPopMatrix();
-				x += d;
-			}
-
-			if (j == 5) {
-				glPushMatrix();
-				glTranslatef(x, y, z);
-				glutSolidSphere(ballSize, 10, 10);
-				glPopMatrix();
-				x -= d;
-			}
-		}
-	}
-	//end
-}
-
 //Taco
 //recebe o array com a posição do taco
 void  drawTaco(double *camPos) {
@@ -136,8 +51,48 @@ void  drawTaco(double *camPos) {
 	std::cout << "----------------camPos[2] = " << camPos[2] << '\n';
 }
 
+//desenha as bolas organizadas no centro da mesa
+void drawGameBalls() {
+
+	float y = 1.5f;
+	float size = 0.05;
+
+	for (int x = 0; x < 4; x++)
+	{
+		for (int z = 0; z < 9; z++) {
+			
+			if (x == 0 && z == 0) {
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*0.05, y, z*-0.05, size));
+				glPopMatrix();
+			}	
+
+			if (x == 1 && z==1) {
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(0.05), y, z*-0.05, size));
+				glPopMatrix();
+
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*-(0.05), y, z*-0.05, size));
+				glPopMatrix();
+
+			}
+
+			
+		}
+	}
+	
+}
 //Coisas q vão ser apresentadas na tela
 void drawSceneGame1(void) {
+	
+
+
+	for (vector<Ball>::iterator it = gameBalls.begin(); it != gameBalls.end(); it++) {
+		glPushMatrix();
+		it->drawBall();
+		glPopMatrix();
+	}
 
 	glPushMatrix();
 	glTranslatef(0, 1, 0);
@@ -156,7 +111,7 @@ void drawSceneGame1(void) {
 	//Vector coisa = Vector(10, 2, 1);
 	
 
-	drawBalls();
+	//drawBalls();
 	
 }
 
