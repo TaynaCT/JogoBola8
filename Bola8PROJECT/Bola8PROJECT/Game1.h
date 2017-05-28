@@ -55,39 +55,90 @@ void  drawTaco(double *camPos) {
 void drawGameBalls() {
 
 	float y = 1.5f;
-	float size = 0.05;
+	float size = 0.04;
+	float distance = 0.05;
 
-	for (int x = 0; x < 4; x++)
-	{
-		for (int z = 0; z < 9; z++) {
-			
-			if (x == 0 && z == 0) {
+	for (int x = 0; x < 5; x++)
+	{					
+			if (x == 0 ) {
 				glPushMatrix();
-				gameBalls.push_back(Ball(x*0.05, y, z*-0.05, size));
+				gameBalls.push_back(Ball(x*distance, y, x*(-distance), size));
 				glPopMatrix();
 			}	
 
-			if (x == 1 && z==1) {
+			if (x == 1) {
 				glPushMatrix();
-				gameBalls.push_back(Ball(x*(0.05), y, z*-0.05, size));
+				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
 				glPopMatrix();
 
 				glPushMatrix();
-				gameBalls.push_back(Ball(x*-(0.05), y, z*-0.05, size));
+				gameBalls.push_back(Ball(x*(-distance), y, x*(-distance), size));
 				glPopMatrix();
 
 			}
 
-			
-		}
+			if (x == 2) {
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
+				glPopMatrix();
+
+				//bola 8
+				//bola no centro da mesa 
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, 0, size));
+				glPopMatrix();
+
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, x*-distance, size));
+				glPopMatrix();				
+			}		
+
+			if (x == 3) {
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
+				glPopMatrix();
+				
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, x*-distance, size));
+				glPopMatrix();
+
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, distance, size));
+				glPopMatrix();
+
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, -distance, size));
+				glPopMatrix();
+
+			}
+
+			if (x == 4) {
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
+				glPopMatrix();
+
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, x*-distance, size));
+				glPopMatrix();
+
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, 2*distance, size));
+				glPopMatrix();
+
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, 2*-distance, size));
+				glPopMatrix();
+
+				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, 0, size));
+				glPopMatrix();
+			}
 	}
 	
 }
 //Coisas q vão ser apresentadas na tela
 void drawSceneGame1(void) {
 	
-
-
 	for (vector<Ball>::iterator it = gameBalls.begin(); it != gameBalls.end(); it++) {
 		glPushMatrix();
 		it->drawBall();
@@ -96,8 +147,8 @@ void drawSceneGame1(void) {
 
 	glPushMatrix();
 	glTranslatef(0, 1, 0);
-	/*glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);*/
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 	glmDraw(pmodel, GLM_SMOOTH | GLM_MATERIAL);
 	glPopMatrix();
 
@@ -108,11 +159,14 @@ void drawSceneGame1(void) {
 	glutSolidSphere(1, 10, 10);
 	glPopMatrix();*/// Pop the old matrix without the transformations.
 
-	//Vector coisa = Vector(10, 2, 1);
-	
+	glPushMatrix();
+	glColor3i(0, 255, 0);
+	glBegin(GL_LINE_STRIP);
+	glVertex3f(-10, 2, 0);
+	glVertex3f(10, 2, 0);
+	glEnd();
+	glPopMatrix();
 
-	//drawBalls();
-	
 }
 
 class Game1 : public Game { public: void gameSetWindowCallbacks(int windowID); };
