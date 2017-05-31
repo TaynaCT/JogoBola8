@@ -44,20 +44,21 @@ void  drawTaco(double *camPos) {
 	glTranslatef(camPos[0], camPos[1], camPos[2]);
 	glRotatef(90, 0.0f, 1.0f, 0.0f);
 	glutSolidCylinder(0.015f, 1, 6, 6);
+	
 	glPopMatrix();// Pop the old matrix without the transformations.
 
-	std::cout << "----------------camPos[0] = " << camPos[0] << '\n';
-	std::cout << "----------------camPos[1] = " << camPos[1] << '\n';
-	std::cout << "----------------camPos[2] = " << camPos[2] << '\n';
 }
 
 //desenha as bolas organizadas no centro da mesa
 void drawGameBalls() {
 
-	float y = 1.5f;
+	float y = 1.24;
 	float size = 0.04;
 	float distance = 0.05;
 
+	//primeira bola da lista é a bola branca
+	gameBalls.push_back(Ball(0.5, y, 0, size));
+	
 	for (int x = 0; x < 5; x++)
 	{					
 			if (x == 0 ) {
@@ -136,6 +137,22 @@ void drawGameBalls() {
 	}
 	
 }
+
+//função que lêr o texto é apresentado na tela
+void renderBitmapString(float x, float y, void *font, char *string)
+{
+	char *c;
+
+	// set position to start drawing fonts
+	glRasterPos2f(x, y);
+
+	// loop all the characters in the string
+	for (c = string; *c != '\0'; c++)
+	{
+		glutBitmapCharacter(font, *c);
+	}
+}
+
 //Coisas q vão ser apresentadas na tela
 void drawSceneGame1(void) {
 	
@@ -149,7 +166,9 @@ void drawSceneGame1(void) {
 	glTranslatef(0, 1, 0);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glmDraw(pmodel, GLM_SMOOTH | GLM_MATERIAL);
+	glmDraw(pmodel, GLM_SMOOTH | GLM_MATERIAL); //modelo 3d
+	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);	
 	glPopMatrix();
 
 	/*glPushMatrix();  Set current matrix on the stack
@@ -159,8 +178,8 @@ void drawSceneGame1(void) {
 	glutSolidSphere(1, 10, 10);
 	glPopMatrix();*/// Pop the old matrix without the transformations.
 
-	glPushMatrix();
-	glColor3i(0, 255, 0);
+	//eixo de x
+	glPushMatrix();	
 	glBegin(GL_LINE_STRIP);
 	glVertex3f(-10, 2, 0);
 	glVertex3f(10, 2, 0);
@@ -203,16 +222,53 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 		drawSceneGame1();
 		drawTaco(currentWindow->camera.camPos);
 		
+		//TEXTO
+		glColor3f(0.0, 1.0, 1.0);
+
+		// switch to projection mode
+		glMatrixMode(GL_PROJECTION);
+		// save previous matrix which contains the 
+		//settings for the perspective projection
+		glPushMatrix();
+		// reset matrix
+		glLoadIdentity();
+		// set a 2D orthographic projection
+		gluOrtho2D(0, glutGet(GLUT_WINDOW_WIDTH), 0, glutGet(GLUT_WINDOW_HEIGHT) / 2);
+		// invert the y axis, down is positive
+		glScalef(1, -1, 1);
+		// mover the origin from the bottom left corner
+		// to the upper left corner
+		glTranslatef(0, -glutGet(GLUT_WINDOW_HEIGHT) / 2, 0);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+		//string
+		renderBitmapString(10, 10, GLUT_BITMAP_8_BY_13, "JOGO BOLA 8");
+		renderBitmapString(10, 20, GLUT_BITMAP_8_BY_13, "Full screen");
+		renderBitmapString(10, 30, GLUT_BITMAP_8_BY_13, "Exit - ESC");
+		glPopMatrix();
+
+		// set the current matrix to GL_PROJECTION
+		glMatrixMode(GL_PROJECTION);
+		// restore previous settings
+		glPopMatrix();
+		// get back to GL_MODELVIEW matrix
+		glMatrixMode(GL_MODELVIEW);
+
 
 		//vista topo
 		glPushMatrix();
+
 		glViewport(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2, glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
 		glLoadIdentity();
 		gluLookAt(0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0);
-		
+		//ativação de luzes
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+
 		drawSceneGame1();
 		glPopMatrix(); // Pop the old matrix without the transformations.
-
+		
 		glutSwapBuffers();
 	});
 

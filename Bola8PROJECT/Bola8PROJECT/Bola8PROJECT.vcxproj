@@ -149,6 +149,7 @@
     <ClCompile Include="glm.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="tga.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Game1.h" />
     <ClInclude Include="glm.h" />
     <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="tga.h" />
     <ClInclude Include="tinymath.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
