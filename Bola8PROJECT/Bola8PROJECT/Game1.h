@@ -3,7 +3,8 @@
 #include "glm.h"
 #include "Vector.h"
 #include "tinymath.h"
-#include"Ball.h"
+#include "Ball.h"
+#include "tga.h"
 
 using namespace std;
 
@@ -14,7 +15,52 @@ static float angle = 0.0;
 static float red = 1.0, blue = 1.0, green = 1.0;
 double motionScale = 0.00001;
 
+tgaInfo *im;
+GLuint texture;
+GLUquadric *mysolid;
+GLfloat spin = 0.05;
 
+
+// Material a aplicar ao objeto
+GLfloat mat_ambient_and_diffuse[] = { 0.4, 0.4, 0.4, 1.0 }; // Reflecte 100% todas as componentes de cor
+GLfloat mat_specular[] = { 0.9, 0.9, 0.9, 1.0 }; // Reflecte 100% todas as componentes de cor
+GLfloat mat_shininess[] = { 6.0 }; // Expoente especular. [0 (mais brilho), 128 (menos brilho)]
+
+
+								   //Inicializa as propriedades do material, fonte de luz, z-buffer, etc...
+void init(void)
+{
+	GLfloat light_ambient[] = { 0.1, 0.1, 0.1, 1.0 }; // "acinzentado"
+	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 }; // Branco
+	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 }; // Branco
+	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 }; // Luz direccional (posicionada no infinito)
+
+
+ // Permitir iluminação e activar fonte de luz #0
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	// Configurar cor da fonte de luz
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+
+	// Configurar a posição da fonte de luz
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+	// Configurar material
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_ambient_and_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
+
+	// Recarcular as normais, após alteração de escala. Melhora a aparência do efeito da iluminação.
+	glEnable(GL_NORMALIZE);
+
+	// Outros...
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glEnable(GL_DEPTH_TEST);
+	glShadeModel(GL_SMOOTH);
+}
 
 //load model é tambem chamada no main!!!
 void loadmodel(void)
@@ -62,77 +108,57 @@ void drawGameBalls() {
 	for (int x = 0; x < 5; x++)
 	{					
 			if (x == 0 ) {
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*distance, y, x*(-distance), size));
-				glPopMatrix();
+				
 			}	
 
 			if (x == 1) {
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
-				glPopMatrix();
-
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*(-distance), y, x*(-distance), size));
-				glPopMatrix();
+				
 
 			}
 
 			if (x == 2) {
-				glPushMatrix();
+			
 				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
-				glPopMatrix();
-
+				
+				
 				//bola 8
-				//bola no centro da mesa 
-				glPushMatrix();
+				//bola no centro da mesa 				
 				gameBalls.push_back(Ball(x*(-distance), y, 0, size));
-				glPopMatrix();
-
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*(-distance), y, x*-distance, size));
-				glPopMatrix();				
+						
 			}		
 
 			if (x == 3) {
-				glPushMatrix();
-				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
-				glPopMatrix();
 				
-				glPushMatrix();
+				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
+				
 				gameBalls.push_back(Ball(x*(-distance), y, x*-distance, size));
-				glPopMatrix();
-
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*(-distance), y, distance, size));
-				glPopMatrix();
-
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*(-distance), y, -distance, size));
-				glPopMatrix();
-
+			
 			}
 
 			if (x == 4) {
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
-				glPopMatrix();
-
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*(-distance), y, x*-distance, size));
-				glPopMatrix();
-
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*(-distance), y, 2*distance, size));
-				glPopMatrix();
-
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*(-distance), y, 2*-distance, size));
-				glPopMatrix();
-
-				glPushMatrix();
+				
 				gameBalls.push_back(Ball(x*(-distance), y, 0, size));
-				glPopMatrix();
+			
 			}
 	}
 	
@@ -164,11 +190,9 @@ void drawSceneGame1(void) {
 
 	glPushMatrix();
 	glTranslatef(0, 1, 0);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
+	
 	glmDraw(pmodel, GLM_SMOOTH | GLM_MATERIAL); //modelo 3d
-	glDisable(GL_LIGHTING);
-	glDisable(GL_LIGHT0);	
+	
 	glPopMatrix();
 
 	/*glPushMatrix();  Set current matrix on the stack
@@ -200,6 +224,7 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 	}
 
 	glutDisplayFunc([](void) {
+
 		MainWindow *currentWindow = (MainWindow *)glutGetWindowData();
 		glutSetWindow(currentWindow->windowId);
 
@@ -208,14 +233,10 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		/*width = glutGet(GLUT_WINDOW_WIDTH);
-		height = glutGet(GLUT_WINDOW_HEIGHT);
-*/
-		//ativação de luzes
-		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);
-
+		
+		//iniciação de luzes, buffers etc
+		init();
+		
 		glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 		currentWindow->camera.cameraUpdate(0,0,0);
 
@@ -254,18 +275,14 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 		glPopMatrix();
 		// get back to GL_MODELVIEW matrix
 		glMatrixMode(GL_MODELVIEW);
-
-
+		
 		//vista topo
 		glPushMatrix();
 
 		glViewport(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2, glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
 		glLoadIdentity();
 		gluLookAt(0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0);
-		//ativação de luzes
-		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);
-
+		
 		drawSceneGame1();
 		glPopMatrix(); // Pop the old matrix without the transformations.
 		
@@ -325,8 +342,7 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 
 		MainWindow *currentWindow = (MainWindow *)glutGetWindowData();
 		glutSetWindow(currentWindow->windowId);
-
-
+		
 		switch (key) {
 		case GLUT_KEY_F1:
 			glutSetWindow(currentWindow->windowId);
@@ -402,7 +418,6 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 
 		//Movimento do taco
 		if (GLUT_LEFT_BUTTON) {
-
 		}
 
 	});

@@ -6,10 +6,10 @@ namespace std
 {	
 	void Ball::drawBall()
 	{
-		//glPushMatrix();
+		glPushMatrix();
 		glTranslatef(posX, posY, posZ);
 		glutSolidSphere(ballSize, 10, 10);
-		//glPopMatrix();		
+		glPopMatrix();		
 	}
 	void Ball::move(float dx, float dy, float dz)
 	{

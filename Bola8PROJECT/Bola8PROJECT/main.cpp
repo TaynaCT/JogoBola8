@@ -2,9 +2,8 @@
 
 int main(int argc, char **argv) {	
 	drawGameBalls();
-
 	loadmodel();
-
+	
 	//definição da nova janela 
 	Game1 game;
 	int wId = game.gameAddMainWindow(0, 0, 800, 600, "Bola 8 || F2 - full screen || esc - escape window");
