@@ -62,10 +62,42 @@ void init(void)
 	glShadeModel(GL_SMOOTH);
 }
 
+void load_tga_image(void)
+{
+	char impathfile[255] = "PoolBall1.tga";
+
+	// Carrega a imagem de textura
+	im = tgaLoad(impathfile);
+
+	printf("IMAGE INFO: %s\nstatus: %d\ntype: %d\npixelDepth: %d\nsize%d x %d\n", impathfile, im->status, im->type, im->pixelDepth, im->width, im->height);
+
+	glGenTextures(1, &texture);
+
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	mysolid = gluNewQuadric();
+	gluQuadricDrawStyle(mysolid, GLU_FILL);
+	gluQuadricTexture(mysolid, GL_TRUE);
+	gluQuadricNormals(mysolid, GLU_SMOOTH);
+	gluQuadricOrientation(mysolid, GLU_OUTSIDE);
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, /*GL_ADD*/GL_MODULATE);
+
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // MIPMAP
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	//gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, im->width, im->height, GL_RGB, GL_UNSIGNED_BYTE, im->imageData); // MIPMAP
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, im->width, im->height, 0, GL_RGB, GL_UNSIGNED_BYTE, im->imageData);
+
+	// Destrói a imagem
+	tgaDestroy(im);
+}
+
+
 //load model é tambem chamada no main!!!
 void loadmodel(void)
-{
-	
+{	
 	if(pmodel == NULL)
 	{
         pmodel = glmReadOBJ("modelos/PoolTableWithoutUVW.obj");
@@ -103,61 +135,61 @@ void drawGameBalls() {
 	float distance = 0.05;
 
 	//primeira bola da lista é a bola branca
-	gameBalls.push_back(Ball(0.5, y, 0, size));
+	gameBalls.push_back(Ball(/*mysolid,*/ 0.5, y, 0, size));
 	
 	for (int x = 0; x < 5; x++)
 	{					
 			if (x == 0 ) {
 				
-				gameBalls.push_back(Ball(x*distance, y, x*(-distance), size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*distance, y, x*(-distance), size));
 				
 			}	
 
 			if (x == 1) {
 				
-				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*distance, size));
 				
-				gameBalls.push_back(Ball(x*(-distance), y, x*(-distance), size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*(-distance), size));
 				
 
 			}
 
 			if (x == 2) {
 			
-				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
+				gameBalls.push_back(Ball(/*mysolid, */x*(-distance), y, x*distance, size));
 				
 				
 				//bola 8
 				//bola no centro da mesa 				
-				gameBalls.push_back(Ball(x*(-distance), y, 0, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, 0, size));
 				
-				gameBalls.push_back(Ball(x*(-distance), y, x*-distance, size));
+				gameBalls.push_back(Ball(/*mysolid, */x*(-distance), y, x*-distance, size));
 						
 			}		
 
 			if (x == 3) {
 				
-				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*distance, size));
 				
-				gameBalls.push_back(Ball(x*(-distance), y, x*-distance, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*-distance, size));
 				
-				gameBalls.push_back(Ball(x*(-distance), y, distance, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, distance, size));
 				
-				gameBalls.push_back(Ball(x*(-distance), y, -distance, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, -distance, size));
 			
 			}
 
 			if (x == 4) {
 				
-				gameBalls.push_back(Ball(x*(-distance), y, x*distance, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*distance, size));
 				
-				gameBalls.push_back(Ball(x*(-distance), y, x*-distance, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*-distance, size));
 				
-				gameBalls.push_back(Ball(x*(-distance), y, 2*distance, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, 2*distance, size));
 				
-				gameBalls.push_back(Ball(x*(-distance), y, 2*-distance, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, 2*-distance, size));
 				
-				gameBalls.push_back(Ball(x*(-distance), y, 0, size));
+				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, 0, size));
 			
 			}
 	}
@@ -183,16 +215,16 @@ void renderBitmapString(float x, float y, void *font, char *string)
 void drawSceneGame1(void) {
 	
 	for (vector<Ball>::iterator it = gameBalls.begin(); it != gameBalls.end(); it++) {
-		glPushMatrix();
-		it->drawBall();
-		glPopMatrix();
+		
+		//bind da textura
+
+		it->drawBall(mysolid);		
 	}
 
+	//Desenha mesa
 	glPushMatrix();
-	glTranslatef(0, 1, 0);
-	
-	glmDraw(pmodel, GLM_SMOOTH | GLM_MATERIAL); //modelo 3d
-	
+	glTranslatef(0, 1, 0);	
+	glmDraw(pmodel, GLM_SMOOTH | GLM_MATERIAL); //modelo 3d	
 	glPopMatrix();
 
 	/*glPushMatrix();  Set current matrix on the stack
@@ -234,8 +266,22 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
+		glEnable(GL_TEXTURE_2D);
+		glMatrixMode(GL_TEXTURE);
+		glColor4f(1.0, 1.0, 1.0, 1.0);
+		glBindTexture(GL_TEXTURE_2D, texture);
+
+		// Configurar material
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_ambient_and_diffuse);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
+
+
+
 		//iniciação de luzes, buffers etc
-		init();
+		//init();
+		//carrega a textura da ser aplicada na imagem 
+		//load_tga_image();
 		
 		glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 		currentWindow->camera.cameraUpdate(0,0,0);
@@ -261,9 +307,10 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 		// to the upper left corner
 		glTranslatef(0, -glutGet(GLUT_WINDOW_HEIGHT) / 2, 0);
 		glMatrixMode(GL_MODELVIEW);
+
 		glPushMatrix();
 		glLoadIdentity();
-		//string
+		//Texto da tela
 		renderBitmapString(10, 10, GLUT_BITMAP_8_BY_13, "JOGO BOLA 8");
 		renderBitmapString(10, 20, GLUT_BITMAP_8_BY_13, "Full screen");
 		renderBitmapString(10, 30, GLUT_BITMAP_8_BY_13, "Exit - ESC");
@@ -276,7 +323,7 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 		// get back to GL_MODELVIEW matrix
 		glMatrixMode(GL_MODELVIEW);
 		
-		//vista topo
+		//VISTA TOPO
 		glPushMatrix();
 
 		glViewport(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2, glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
@@ -286,7 +333,9 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 		drawSceneGame1();
 		glPopMatrix(); // Pop the old matrix without the transformations.
 		
+		glDisable(GL_TEXTURE_2D);
 		glutSwapBuffers();
+		glFlush();
 	});
 
 	glutReshapeFunc([](int w, int h) {

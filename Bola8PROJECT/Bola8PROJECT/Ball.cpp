@@ -4,12 +4,16 @@
 
 namespace std
 {	
-	void Ball::drawBall()
+	void Ball::drawBall(GLUquadric *mySolid)
 	{
 		glPushMatrix();
+		
 		glTranslatef(posX, posY, posZ);
 		glutSolidSphere(ballSize, 10, 10);
-		glPopMatrix();		
+				
+		gluSphere(mySolid, ballSize, 10, 10);
+		glPopMatrix();
+		int a = 0;
 	}
 	void Ball::move(float dx, float dy, float dz)
 	{
