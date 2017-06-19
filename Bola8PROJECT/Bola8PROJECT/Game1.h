@@ -64,7 +64,7 @@ void init(void)
 
 void load_tga_image(void)
 {
-	char impathfile[255] = "PoolBall1.tga";
+	char impathfile[255] = "Texturas/PoolBall1.tga";
 
 	// Carrega a imagem de textura
 	im = tgaLoad(impathfile);
@@ -215,9 +215,7 @@ void renderBitmapString(float x, float y, void *font, char *string)
 void drawSceneGame1(void) {
 	
 	for (vector<Ball>::iterator it = gameBalls.begin(); it != gameBalls.end(); it++) {
-		
-		//bind da textura
-
+	
 		it->drawBall(mysolid);		
 	}
 
@@ -266,8 +264,7 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		glEnable(GL_TEXTURE_2D);
-		glMatrixMode(GL_TEXTURE);
+		glEnable(GL_TEXTURE_2D);	
 		glColor4f(1.0, 1.0, 1.0, 1.0);
 		glBindTexture(GL_TEXTURE_2D, texture);
 
@@ -287,6 +284,7 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 		currentWindow->camera.cameraUpdate(0,0,0);
 
 		drawSceneGame1();
+		
 		drawTaco(currentWindow->camera.camPos);
 		
 		//TEXTO
