@@ -102,6 +102,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\lobix7\Desktop\bullet3\src</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +163,17 @@
     <ClInclude Include="tga.h" />
     <ClInclude Include="tinymath.h" />
     <ClInclude Include="Vector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\lobix7\Desktop\bullet3-master\build\src\BulletCollision\BulletCollision.vcxproj">
+      <Project>{497291be-6802-3ae9-88a6-41a681f3a398}</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\lobix7\Desktop\bullet3-master\build\src\BulletDynamics\BulletDynamics.vcxproj">
+      <Project>{82ecdc1c-ab31-3c8b-8edd-afaa95ce6120}</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\lobix7\Desktop\bullet3-master\build\src\LinearMath\LinearMath.vcxproj">
+      <Project>{4e3f8350-c85f-3a98-8ea8-f3913621cadc}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

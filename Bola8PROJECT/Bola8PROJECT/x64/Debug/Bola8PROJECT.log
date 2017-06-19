@@ -1,0 +1,54 @@
+﻿C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:\Users\lobix7\Desktop\bullet3-master\build\src\BulletCollision\BulletCollision.vcxproj' does not exist.
+C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:\Users\lobix7\Desktop\bullet3-master\build\src\BulletDynamics\BulletDynamics.vcxproj' does not exist.
+C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:\Users\lobix7\Desktop\bullet3-master\build\src\LinearMath\LinearMath.vcxproj' does not exist.
+  tga.cpp
+d:\jogobola8\bola8project\bola8project\tga.cpp(128): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+d:\jogobola8\bola8project\bola8project\tga.cpp(251): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+d:\jogobola8\bola8project\bola8project\tga.cpp(311): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+  MainWindow.cpp
+  main.cpp
+d:\jogobola8\bola8project\bola8project\game1.h(21): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\game1.h(25): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+d:\jogobola8\bola8project\bola8project\game1.h(25): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\game1.h(26): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+d:\jogobola8\bola8project\bola8project\game1.h(26): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\game1.h(33): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+d:\jogobola8\bola8project\bola8project\game1.h(33): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\game1.h(122): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\game1.h(133): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\jogobola8\bola8project\bola8project\game1.h(134): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\jogobola8\bola8project\bola8project\game1.h(135): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\jogobola8\bola8project\bola8project\game1.h(308): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+  glm.cpp
+d:\jogobola8\bola8project\bola8project\glm.cpp(305): warning C4305: '=': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\glm.cpp(306): warning C4305: '=': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\glm.cpp(307): warning C4305: '=': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\glm.cpp(309): warning C4305: '=': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\glm.cpp(310): warning C4305: '=': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\glm.cpp(311): warning C4305: '=': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\glm.cpp(809): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(810): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(811): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(814): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(1014): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(1171): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(1177): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(1178): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(1228): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(1229): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(1236): warning C4305: '=': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\glm.cpp(1238): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(1241): warning C4305: '=': truncation from 'double' to 'GLfloat'
+d:\jogobola8\bola8project\bola8project\glm.cpp(1243): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(1246): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+d:\jogobola8\bola8project\bola8project\glm.cpp(1247): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  Game.cpp
+  Camera.cpp
+d:\jogobola8\bola8project\bola8project\camera.cpp(91): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+  Ball.cpp
+  Generating Code...
+  Bola8PROJECT.vcxproj -> D:\JogoBola8\Bola8PROJECT\x64\Debug\Bola8PROJECT.exe
+  Bola8PROJECT.vcxproj -> D:\JogoBola8\Bola8PROJECT\x64\Debug\Bola8PROJECT.pdb (Full PDB)
