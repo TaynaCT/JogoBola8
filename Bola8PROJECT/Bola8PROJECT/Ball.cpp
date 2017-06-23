@@ -9,9 +9,9 @@ namespace std
 		glPushMatrix();
 		
 		glTranslatef(posX, posY, posZ);
-		glutSolidSphere(ballSize, 10, 10);
+		//glutSolidSphere(ballSize, 10, 10);
 				
-		gluSphere(mySolid, ballSize, 10, 10);
+		gluSphere(mySolid, ballSize, 50, 50);
 		glPopMatrix();
 		int a = 0;
 	}

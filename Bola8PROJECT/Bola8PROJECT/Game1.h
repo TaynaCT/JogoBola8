@@ -65,7 +65,7 @@ void init(void)
 void load_tga_image(void)
 {
 	char impathfile[255] = "Texturas/PoolBall1.tga";
-
+	//char impathfile[255] = "earth.tga";
 	// Carrega a imagem de textura
 	im = tgaLoad(impathfile);
 
@@ -216,6 +216,15 @@ void drawSceneGame1(void) {
 	
 	for (vector<Ball>::iterator it = gameBalls.begin(); it != gameBalls.end(); it++) {
 	
+		glEnable(GL_TEXTURE_2D);
+		glColor4f(1.0, 1.0, 1.0, 1.0);
+		glBindTexture(GL_TEXTURE_2D, texture);
+
+		// Configurar material
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_ambient_and_diffuse);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
+		//-----------------------------
 		it->drawBall(mysolid);		
 	}
 
@@ -264,14 +273,14 @@ void Game1::gameSetWindowCallbacks(int windowID) {
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		glEnable(GL_TEXTURE_2D);	
-		glColor4f(1.0, 1.0, 1.0, 1.0);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		//glEnable(GL_TEXTURE_2D);	
+		//glColor4f(1.0, 1.0, 1.0, 1.0);
+		//glBindTexture(GL_TEXTURE_2D, texture);
 
-		// Configurar material
-		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_ambient_and_diffuse);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
+		//// Configurar material
+		//glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_ambient_and_diffuse);
+		//glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
+		//glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
 
 
 

@@ -1,15 +1,14 @@
 #include "Game1.h"
 
 int main(int argc, char **argv) {	
-
-	drawGameBalls();
-	loadmodel();
-	
+		
 	//definição da nova janela 
 	Game1 game;
 	int wId = game.gameAddMainWindow(0, 0, 800, 600, "Bola 8 || F2 - full screen || esc - escape window");
 
-	init();
+	init(); //iniciação de luzes
+	drawGameBalls(); //desenho das bolas
+	loadmodel(); // carregamenti di modelo 3d da mesa
 
 	//posicionamento inicial da camera
 	game.gameCameraSetPosition(wId, 0.0, 1.0, 1.0, 1.0, 0.0, -1.0, 0.0, 1.0, 0.0);
