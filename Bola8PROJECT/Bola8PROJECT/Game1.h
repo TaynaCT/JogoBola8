@@ -16,10 +16,11 @@ static float red = 1.0, blue = 1.0, green = 1.0;
 double motionScale = 0.00001;
 
 tgaInfo *im;
-GLuint texture;
+//GLuint texture;
+GLuint ballsTexture[15]; // array de texturas
+int textIndice = 0;
 GLUquadric *mysolid;
 GLfloat spin = 0.05;
-
 
 // Material a aplicar ao objeto
 GLfloat mat_ambient_and_diffuse[] = { 0.4, 0.4, 0.4, 1.0 }; // Reflecte 100% todas as componentes de cor
@@ -64,34 +65,47 @@ void init(void)
 
 void load_tga_image(void)
 {
-	char impathfile[255] = "Texturas/PoolBall1.tga";
-	//char impathfile[255] = "earth.tga";
-	// Carrega a imagem de textura
-	im = tgaLoad(impathfile);
+	string pathArray[] = { "Texturas/PoolBall1.tga", "Texturas/PoolBall2.tga", "Texturas/PoolBall3.tga", "Texturas/PoolBall4.tga", "Texturas/PoolBall5.tga",
+						"Texturas/PoolBall6.tga", "Texturas/PoolBall7.tga", "Texturas/PoolBall8.tga", "Texturas/PoolBall9.tga", "Texturas/PoolBall10.tga",
+						"Texturas/PoolBall11.tga", "Texturas/PoolBall12.tga", "Texturas/PoolBall13.tga", "Texturas/PoolBall14.tga", "Texturas/PoolBall5.tga" };
 
-	printf("IMAGE INFO: %s\nstatus: %d\ntype: %d\npixelDepth: %d\nsize%d x %d\n", impathfile, im->status, im->type, im->pixelDepth, im->width, im->height);
+	for (int i = 0; i < 15; i++)
+	{
+		//const char impathfile[255] = "Texturas/PoolBall2.tga";
+		char *impathfile = new char[pathArray[i].length() + 1];
+		strcpy(impathfile, pathArray[i].c_str());
 
-	glGenTextures(1, &texture);
+		//char impathfile[255] = "earth.tga";
+		// Carrega a imagem de textura
+		im = tgaLoad(impathfile);
 
-	glBindTexture(GL_TEXTURE_2D, texture);
+		printf("IMAGE INFO: %s\nstatus: %d\ntype: %d\npixelDepth: %d\nsize%d x %d\n", impathfile, im->status, im->type, im->pixelDepth, im->width, im->height);
 
-	mysolid = gluNewQuadric();
-	gluQuadricDrawStyle(mysolid, GLU_FILL);
-	gluQuadricTexture(mysolid, GL_TRUE);
-	gluQuadricNormals(mysolid, GLU_SMOOTH);
-	gluQuadricOrientation(mysolid, GLU_OUTSIDE);
+		//glGenTextures(1, &texture);
+		glGenTextures(15, ballsTexture);
 
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, /*GL_ADD*/GL_MODULATE);
+		//glBindTexture(GL_TEXTURE_2D, texture);
 
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // MIPMAP
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glBindTexture(GL_TEXTURE_2D,ballsTexture[i]);
 
-	//gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, im->width, im->height, GL_RGB, GL_UNSIGNED_BYTE, im->imageData); // MIPMAP
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, im->width, im->height, 0, GL_RGB, GL_UNSIGNED_BYTE, im->imageData);
+		mysolid = gluNewQuadric();
+		gluQuadricDrawStyle(mysolid, GLU_FILL);
+		gluQuadricTexture(mysolid, GL_TRUE);
+		gluQuadricNormals(mysolid, GLU_SMOOTH);
+		gluQuadricOrientation(mysolid, GLU_OUTSIDE);
 
-	// Destrói a imagem
-	tgaDestroy(im);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, /*GL_ADD*/GL_MODULATE);
+
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // MIPMAP
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		//gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, im->width, im->height, GL_RGB, GL_UNSIGNED_BYTE, im->imageData); // MIPMAP
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, im->width, im->height, 0, GL_RGB, GL_UNSIGNED_BYTE, im->imageData);
+
+		// Destrói a imagem
+		tgaDestroy(im);
+	}
 }
 
 
@@ -216,9 +230,14 @@ void drawSceneGame1(void) {
 	
 	for (vector<Ball>::iterator it = gameBalls.begin(); it != gameBalls.end(); it++) {
 	
+		textIndice++;
+		if (textIndice > 15) {
+			textIndice = 0;
+		}
 		glEnable(GL_TEXTURE_2D);
-		glColor4f(1.0, 1.0, 1.0, 1.0);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		//glColor4f(1.0, 1.0, 1.0, 1.0);
+		//glBindTexture(GL_TEXTURE_2D, texture[]);
+		glBindTexture(GL_TEXTURE_2D, ballsTexture[textIndice]);
 
 		// Configurar material
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_ambient_and_diffuse);
