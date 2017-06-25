@@ -149,61 +149,61 @@ void drawGameBalls() {
 	float distance = 0.05;
 
 	//primeira bola da lista é a bola branca
-	gameBalls.push_back(Ball(/*mysolid,*/ 0.5, y, 0, size));
+	gameBalls.push_back(Ball(0, 0.5, y, 0, size));
 	
 	for (int x = 0; x < 5; x++)
 	{					
 			if (x == 0 ) {
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*distance, y, x*(-distance), size));
+				gameBalls.push_back(Ball(1, x*distance, y, x*(-distance), size));
 				
 			}	
 
 			if (x == 1) {
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*distance, size));
+				gameBalls.push_back(Ball(2, x*(-distance), y, x*distance, size));
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*(-distance), size));
+				gameBalls.push_back(Ball(3, x*(-distance), y, x*(-distance), size));
 				
 
 			}
 
 			if (x == 2) {
 			
-				gameBalls.push_back(Ball(/*mysolid, */x*(-distance), y, x*distance, size));
+				gameBalls.push_back(Ball(4, x*(-distance), y, x*distance, size));
 				
 				
 				//bola 8
 				//bola no centro da mesa 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, 0, size));
+				gameBalls.push_back(Ball(8, x*(-distance), y, 0, size));
 				
-				gameBalls.push_back(Ball(/*mysolid, */x*(-distance), y, x*-distance, size));
+				gameBalls.push_back(Ball(5, x*(-distance), y, x*-distance, size));
 						
 			}		
 
 			if (x == 3) {
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*distance, size));
+				gameBalls.push_back(Ball(6,  x*(-distance), y, x*distance, size));
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*-distance, size));
+				gameBalls.push_back(Ball(8, x*(-distance), y, x*-distance, size));
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, distance, size));
+				gameBalls.push_back(Ball(9,  x*(-distance), y, distance, size));
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, -distance, size));
+				gameBalls.push_back(Ball(10, x*(-distance), y, -distance, size));
 			
 			}
 
 			if (x == 4) {
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*distance, size));
+				gameBalls.push_back(Ball(11, x*(-distance), y, x*distance, size));
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, x*-distance, size));
+				gameBalls.push_back(Ball(12, x*(-distance), y, x*-distance, size));
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, 2*distance, size));
+				gameBalls.push_back(Ball(13, x*(-distance), y, 2*distance, size));
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, 2*-distance, size));
+				gameBalls.push_back(Ball(14, x*(-distance), y, 2*-distance, size));
 				
-				gameBalls.push_back(Ball(/*mysolid,*/ x*(-distance), y, 0, size));
+				gameBalls.push_back(Ball(15, x*(-distance), y, 0, size));
 			
 			}
 	}
@@ -229,22 +229,30 @@ void renderBitmapString(float x, float y, void *font, char *string)
 void drawSceneGame1(void) {
 	
 	for (vector<Ball>::iterator it = gameBalls.begin(); it != gameBalls.end(); it++) {
-	
+		printf("%d\t-\t%d\n",textIndice, gameBalls[textIndice].getFlag());
+
 		textIndice++;
-		if (textIndice > 15) {
-			textIndice = 0;
-		}
+		
 		glEnable(GL_TEXTURE_2D);
 		//glColor4f(1.0, 1.0, 1.0, 1.0);
-		//glBindTexture(GL_TEXTURE_2D, texture[]);
 		glBindTexture(GL_TEXTURE_2D, ballsTexture[textIndice]);
-
+		
+		/*if (gameBalls[textIndice].getFlag() == textIndice) {
+			glBindTexture(GL_TEXTURE_2D, ballsTexture[textIndice]);
+		}
+		if (gameBalls[15].getFlag() == 15) {
+			glBindTexture(GL_TEXTURE_2D, ballsTexture[0]);
+		}*/
 		// Configurar material
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_ambient_and_diffuse);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
 		//-----------------------------
-		it->drawBall(mysolid);		
+		it->drawBall(mysolid);	
+		
+		if (textIndice > 15) {
+			textIndice = 0;
+		}
 	}
 
 	//Desenha mesa

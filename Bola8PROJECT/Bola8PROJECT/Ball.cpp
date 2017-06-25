@@ -21,4 +21,8 @@ namespace std
 		posY = dy;
 		posZ = dz;
 	}
+
+	int Ball::getFlag() {
+		return ballFlag;
+	}
 }

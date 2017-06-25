@@ -15,6 +15,6 @@ c:\users\tayna\documents\jogobola8\bola8project\bola8project\game1.h(136): warni
 c:\users\tayna\documents\jogobola8\bola8project\bola8project\game1.h(147): warning C4305: 'initializing': truncation from 'double' to 'float'
 c:\users\tayna\documents\jogobola8\bola8project\bola8project\game1.h(148): warning C4305: 'initializing': truncation from 'double' to 'float'
 c:\users\tayna\documents\jogobola8\bola8project\bola8project\game1.h(149): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\tayna\documents\jogobola8\bola8project\bola8project\game1.h(334): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\tayna\documents\jogobola8\bola8project\bola8project\game1.h(342): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
   Bola8PROJECT.vcxproj -> C:\Users\tayna\Documents\JogoBola8\Bola8PROJECT\x64\Debug\Bola8PROJECT.exe
   Bola8PROJECT.vcxproj -> C:\Users\tayna\Documents\JogoBola8\Bola8PROJECT\x64\Debug\Bola8PROJECT.pdb (Full PDB)
